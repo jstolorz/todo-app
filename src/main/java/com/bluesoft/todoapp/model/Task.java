@@ -2,6 +2,7 @@ package com.bluesoft.todoapp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Entity
 @Table( name = "tasks")
@@ -14,6 +15,7 @@ public class Task {
     @NotBlank(message = "Task's description must be not empty")
     private String description;
     private boolean done;
+    private LocalDateTime deadline;
 
     public Task() {
     }
@@ -22,7 +24,7 @@ public class Task {
         return id;
     }
 
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -38,7 +40,15 @@ public class Task {
         return done;
     }
 
-    void setDone(boolean done) {
+    public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(final LocalDateTime deadline) {
+        this.deadline = deadline;
     }
 }
