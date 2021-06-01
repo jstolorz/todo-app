@@ -19,12 +19,17 @@ public class TaskGroup {
     @Embedded
     private Audit audit = new Audit();
 
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     @OneToMany(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "group"
     )
     private Set<Task> tasks;
+
 
     public TaskGroup() {
 
@@ -60,5 +65,13 @@ public class TaskGroup {
 
     void setTasks(final Set<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    void setProject(final Project projects) {
+        this.project = projects;
     }
 }
