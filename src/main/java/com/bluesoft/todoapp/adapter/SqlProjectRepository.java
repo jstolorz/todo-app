@@ -12,7 +12,7 @@ import java.util.List;
 interface SqlProjectRepository extends ProjectRepository, JpaRepository<Project, Integer> {
 
     @Override
-    @Query("from Project p join fetch p.project_steps")
+    @Query("from Project p join fetch p.steps")
     List<Project> findAll();
 
 }

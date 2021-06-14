@@ -24,7 +24,7 @@ public class Project {
             cascade = CascadeType.ALL,
             mappedBy = "project"
     )
-    private Set<ProjectSteps> project_steps;
+    private Set<ProjectSteps> steps;
 
     public Project() {
     }
@@ -53,11 +53,11 @@ public class Project {
         this.task_group = task_group;
     }
 
-    Set<ProjectSteps> getProject_steps() {
-        return project_steps;
+    public Set<ProjectSteps> getSteps() {
+        return steps;
     }
 
-    void setProject_steps(final Set<ProjectSteps> project_steps) {
-        this.project_steps = project_steps;
+    void setSteps(final Set<ProjectSteps> project_steps) {
+        this.steps = project_steps;
     }
 }
