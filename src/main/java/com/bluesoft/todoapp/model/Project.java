@@ -37,7 +37,7 @@ public class Project {
         this.id = id;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -45,7 +45,7 @@ public class Project {
         this.description = description;
     }
 
-    Set<TaskGroup> getTask_group() {
+    public Set<TaskGroup> getTask_group() {
         return task_group;
     }
 

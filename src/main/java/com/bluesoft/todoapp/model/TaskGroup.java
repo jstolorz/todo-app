@@ -71,7 +71,7 @@ public class TaskGroup {
         return project;
     }
 
-    void setProject(final Project projects) {
+    public void setProject(final Project projects) {
         this.project = projects;
     }
 }

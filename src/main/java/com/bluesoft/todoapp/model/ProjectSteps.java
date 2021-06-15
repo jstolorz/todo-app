@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "project_steps")
-class ProjectSteps {
+public class ProjectSteps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -27,7 +27,7 @@ class ProjectSteps {
         this.id = id;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -43,7 +43,7 @@ class ProjectSteps {
         this.project = project;
     }
 
-    int getDays_to_deadline() {
+    public int getDays_to_deadline() {
         return days_to_deadline;
     }
 
