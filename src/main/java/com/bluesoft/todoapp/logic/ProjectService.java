@@ -48,12 +48,24 @@ public class ProjectService {
                                  )
                                     .collect(Collectors.toSet())
                   );
-                 return taskGroup;
+                    taskGroup.setProject(project);
+                 return taskGroupRepository.save(taskGroup);
               }).orElseThrow(()-> new IllegalArgumentException("Project with given id not found"));
 
          return new GroupReadModel(result);
       }
 }
+
+
+
+
+
+
+
+
+
+
+
 //@Service
 //public class ProjectService {
 //    private final ProjectRepository projectRepository;
