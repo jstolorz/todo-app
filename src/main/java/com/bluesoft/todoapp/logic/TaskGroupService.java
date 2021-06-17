@@ -5,12 +5,11 @@ import com.bluesoft.todoapp.model.TaskGroupRepository;
 import com.bluesoft.todoapp.model.TaskRepository;
 import com.bluesoft.todoapp.model.projection.GroupReadModel;
 import com.bluesoft.todoapp.model.projection.GroupWriteModel;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 public class TaskGroupService {
 
     private final TaskGroupRepository repository;

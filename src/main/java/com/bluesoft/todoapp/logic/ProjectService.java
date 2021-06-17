@@ -3,13 +3,12 @@ package com.bluesoft.todoapp.logic;
 import com.bluesoft.todoapp.TaskConfigurationProperties;
 import com.bluesoft.todoapp.model.*;
 import com.bluesoft.todoapp.model.projection.GroupReadModel;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+//@Service
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
