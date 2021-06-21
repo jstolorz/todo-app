@@ -30,7 +30,7 @@ class ProjectServiceTest {
         var mockGroupRepository = groupRepositoryReturning(true);
         TaskConfigurationProperties mockConfig = configurationReturning(false);
         // system under test
-        var toTest = new ProjectService(null, mockGroupRepository, mockConfig);
+        var toTest = new ProjectService(null, mockGroupRepository, mockConfig, null);
 
 
         // when
@@ -62,7 +62,7 @@ class ProjectServiceTest {
         when(mockRepository.findById(anyInt())).thenReturn(Optional.empty());
         TaskConfigurationProperties mockConfig = configurationReturning(true);
         // system under test
-        var toTest = new ProjectService(mockRepository, null, mockConfig);
+        var toTest = new ProjectService(mockRepository, null, mockConfig, null);
 
         // when
         var exception = catchThrowable(()-> toTest.createGroup(1,LocalDateTime.now()));
@@ -84,7 +84,7 @@ class ProjectServiceTest {
         // and
         TaskConfigurationProperties mockConfig = configurationReturning(true);
         // system under test
-        var toTest = new ProjectService(mockRepository, mockGroupRepository, mockConfig);
+        var toTest = new ProjectService(mockRepository, mockGroupRepository, mockConfig, null);
 
         // when
         var exception = catchThrowable(()-> toTest.createGroup(1,LocalDateTime.now()));
@@ -108,11 +108,12 @@ class ProjectServiceTest {
                 .thenReturn(Optional.of(project));
         // and
         InMemoryGroupRepository inMemoryGroupRepo = inMemoryGroupRepository();
+        var serviceWithInMemoryRepo =new TaskGroupService(inMemoryGroupRepo,null);
         int countBeforeCall = inMemoryGroupRepo.count();
         // and
         TaskConfigurationProperties mockConfig = configurationReturning(true);
         // system under test
-        var toTest = new ProjectService(mockRepository, inMemoryGroupRepo, mockConfig);
+        var toTest = new ProjectService(mockRepository, inMemoryGroupRepo, mockConfig, serviceWithInMemoryRepo);
 
         // when
          GroupReadModel result = toTest.createGroup(1,today);

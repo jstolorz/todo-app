@@ -17,7 +17,7 @@ public class LogicConfiguration {
             final TaskGroupRepository taskGroupRepository,
             final TaskConfigurationProperties properties
             ){
-        return new ProjectService(projectRepository,taskGroupRepository,properties);
+        return new ProjectService(projectRepository,taskGroupRepository,properties, null);
     }
 
     @Bean
