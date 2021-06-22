@@ -15,6 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @Controller
+@RequestMapping("/tasks")
 class TaskController {
     private final TaskRepository repository;
     public static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
@@ -24,34 +25,33 @@ class TaskController {
         this.repository = repository;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/tasks",
-            params = {"!sort","!page","!size"})
+    @GetMapping(params={"!sort","!page","!size"})
     ResponseEntity<List<Task>> readAllTasks(){
         LOGGER.warn("Exposing all the tasks");
         return ResponseEntity.ok(repository.findAll());
     }
 
-    @RequestMapping(method = RequestMethod.GET, path ="/tasks")
+    @GetMapping
     ResponseEntity<List<Task>> readAllTasks(Pageable page){
         LOGGER.warn("Custom pageable");
         return ResponseEntity.ok(repository.findAll(page).getContent());
     }
 
-    @RequestMapping(method = RequestMethod.GET, path ="/tasks/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<Task> getTaskById(@PathVariable int id){
         return repository.findById(id)
                 .map(task -> ResponseEntity.ok(task))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @RequestMapping(method = RequestMethod.POST, path ="/tasks")
+    @PostMapping
     ResponseEntity<Task> createTask(@RequestBody @Valid Task toCreate){
         Task task =  repository.save(toCreate);
         URI location = URI.create(String.format("/%s", task.getId()));
         return ResponseEntity.created(location).build();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path ="/tasks/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<Task> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate){
         if(!repository.existsById(id)){
            return ResponseEntity.notFound().build();
@@ -66,7 +66,7 @@ class TaskController {
     }
 
     @Transactional
-    @RequestMapping(method = RequestMethod.PATCH, path ="/tasks/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<Task> toggleTask(@PathVariable int id){
         if(!repository.existsById(id)){
             return ResponseEntity.notFound().build();
@@ -76,6 +76,15 @@ class TaskController {
                 .ifPresent(task -> task.setDone(!task.isDone()));
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/search/done")
+    ResponseEntity<List<Task>> readDoneTask(@RequestParam(defaultValue = "true") boolean state){
+       return ResponseEntity.ok(
+               repository.findByDone(state)
+       );
+    }
+
+
 
 
 }
