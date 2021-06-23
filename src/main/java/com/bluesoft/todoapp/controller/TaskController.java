@@ -1,5 +1,6 @@
 package com.bluesoft.todoapp.controller;
 
+import com.bluesoft.todoapp.logic.TaskService;
 import com.bluesoft.todoapp.model.Task;
 import com.bluesoft.todoapp.model.TaskRepository;
 import org.slf4j.Logger;
@@ -13,22 +14,25 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 @RequestMapping("/tasks")
 class TaskController {
-    private final TaskRepository repository;
     public static final Logger LOGGER = LoggerFactory.getLogger(TaskController.class);
 
+    private final TaskRepository repository;
+    private final TaskService service;
 
-    TaskController(final TaskRepository repository) {
+    TaskController(final TaskRepository repository, final TaskService service) {
         this.repository = repository;
+        this.service = service;
     }
 
     @GetMapping(params={"!sort","!page","!size"})
-    ResponseEntity<List<Task>> readAllTasks(){
+    CompletableFuture<ResponseEntity<List<Task>>> readAllTasks(){
         LOGGER.warn("Exposing all the tasks");
-        return ResponseEntity.ok(repository.findAll());
+        return service.findAllAsync().thenApply(ResponseEntity::ok);
     }
 
     @GetMapping
