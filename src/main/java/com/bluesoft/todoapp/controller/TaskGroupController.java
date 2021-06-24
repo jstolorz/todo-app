@@ -24,20 +24,23 @@ class TaskGroupController {
     }
 
     @GetMapping
-    ResponseEntity<List<GroupReadModel>> readAllTasks(){
+    ResponseEntity<List<GroupReadModel>> readAllGroups(){
         return ResponseEntity.ok(service.readAll());
+    }
+
+    @GetMapping("/{id}/tasks")
+    ResponseEntity<List<Task>> readAllTasksFromGroup(@PathVariable int id){
+        return ResponseEntity.ok(service.findAllTaskFromGroupById(id));
     }
 
     @PostMapping
     ResponseEntity<GroupReadModel> createTask(@RequestBody @Valid GroupWriteModel toCreate){
-        service.createGroup(toCreate);
-        URI location = URI.create(String.format("/"));
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(URI.create("/")).body(service.createGroup(toCreate));
     }
 
     @Transactional
     @PatchMapping("/{id}")
-    public ResponseEntity<Task> toggleGroup(@PathVariable int id){
+    public ResponseEntity<?> toggleGroup(@PathVariable int id){
 
         try{
             service.toggleGroup(id);

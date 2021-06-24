@@ -1,5 +1,6 @@
 package com.bluesoft.todoapp.logic;
 
+import com.bluesoft.todoapp.model.Task;
 import com.bluesoft.todoapp.model.TaskGroup;
 import com.bluesoft.todoapp.model.TaskGroupRepository;
 import com.bluesoft.todoapp.model.TaskRepository;
@@ -41,6 +42,10 @@ public class TaskGroupService {
                .orElseThrow(() -> new IllegalArgumentException("TaskGroup with given id not found"));
        result.setDone(!result.isDone());
        repository.save(result);
+    }
+
+    public List<Task> findAllTaskFromGroupById(int groupId){
+        return taskRepository.findAllByGroupId(groupId);
     }
 
 }
