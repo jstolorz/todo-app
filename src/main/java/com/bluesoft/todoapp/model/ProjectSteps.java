@@ -10,7 +10,7 @@ public class ProjectSteps {
     private int id;
 
     private String description;
-    private int days_to_deadline;
+    private int daysToDeadline;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -31,23 +31,23 @@ public class ProjectSteps {
         return description;
     }
 
-    void setDescription(final String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
-    Project getProjects() {
+    Project getProject() {
         return project;
     }
 
-    void setProjects(final Project project) {
+    public void setProject(final Project project) {
         this.project = project;
     }
 
-    public int getDays_to_deadline() {
-        return days_to_deadline;
+    public int getDaysToDeadline() {
+        return daysToDeadline;
     }
 
-    void setDays_to_deadline(final int days_to_deadline) {
-        this.days_to_deadline = days_to_deadline;
+    public void setDaysToDeadline(final int days_to_deadline) {
+        this.daysToDeadline = days_to_deadline;
     }
 }

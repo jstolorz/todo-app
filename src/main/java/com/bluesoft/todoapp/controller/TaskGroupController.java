@@ -35,21 +35,25 @@ class TaskGroupController {
 
     @PostMapping
     ResponseEntity<GroupReadModel> createTask(@RequestBody @Valid GroupWriteModel toCreate){
-        return ResponseEntity.created(URI.create("/")).body(service.createGroup(toCreate));
+        final GroupReadModel group = service.createGroup(toCreate);
+        return ResponseEntity.created(URI.create("/" + group.getId())).body(group);
     }
 
     @Transactional
     @PatchMapping("/{id}")
     public ResponseEntity<?> toggleGroup(@PathVariable int id){
-
-        try{
-            service.toggleGroup(id);
-        }catch(IllegalStateException ex){
-            return ResponseEntity.badRequest().build();
-        }catch(IllegalArgumentException ex){
-            return ResponseEntity.notFound().build();
-        }
-
+        service.toggleGroup(id);
         return ResponseEntity.noContent().build();
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e){
+        return ResponseEntity.notFound().build();
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    ResponseEntity<String> handleIllegalStateException(IllegalStateException e){
+        return ResponseEntity.badRequest().build();
+    }
+
 }

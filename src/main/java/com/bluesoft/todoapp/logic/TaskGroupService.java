@@ -1,9 +1,6 @@
 package com.bluesoft.todoapp.logic;
 
-import com.bluesoft.todoapp.model.Task;
-import com.bluesoft.todoapp.model.TaskGroup;
-import com.bluesoft.todoapp.model.TaskGroupRepository;
-import com.bluesoft.todoapp.model.TaskRepository;
+import com.bluesoft.todoapp.model.*;
 import com.bluesoft.todoapp.model.projection.GroupReadModel;
 import com.bluesoft.todoapp.model.projection.GroupWriteModel;
 
@@ -22,9 +19,14 @@ public class TaskGroupService {
     }
 
     public GroupReadModel createGroup(GroupWriteModel source){
-        final TaskGroup result = repository.save(source.toGroup());
+        return createGroup(source,null);
+    }
+
+    public GroupReadModel createGroup(GroupWriteModel source, final Project project){
+        final TaskGroup result = repository.save(source.toGroup(project));
         return new GroupReadModel(result);
     }
+
 
     public List<GroupReadModel> readAll(){
         return repository.findAll()

@@ -1,6 +1,7 @@
 package com.bluesoft.todoapp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
@@ -10,6 +11,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "Project's description must not be empty")
     private String description;
 
     @OneToMany(
@@ -41,7 +43,7 @@ public class Project {
         return description;
     }
 
-    void setDescription(final String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -57,7 +59,7 @@ public class Project {
         return steps;
     }
 
-    void setSteps(final Set<ProjectSteps> project_steps) {
+    public void setSteps(final Set<ProjectSteps> project_steps) {
         this.steps = project_steps;
     }
 }

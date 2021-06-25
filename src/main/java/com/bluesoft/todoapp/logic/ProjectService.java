@@ -7,6 +7,7 @@ import com.bluesoft.todoapp.model.TaskGroupRepository;
 import com.bluesoft.todoapp.model.projection.GroupReadModel;
 import com.bluesoft.todoapp.model.projection.GroupTaskWriteModel;
 import com.bluesoft.todoapp.model.projection.GroupWriteModel;
+import com.bluesoft.todoapp.model.projection.ProjectWriteModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,8 +31,8 @@ public class ProjectService {
       return  projectRepository.findAll();
     }
 
-    public Project save(Project toSave){
-        return projectRepository.save(toSave);
+    public Project save(ProjectWriteModel toSave){
+        return projectRepository.save(toSave.toProject());
     }
 
 
@@ -50,13 +51,13 @@ public class ProjectService {
                             .map(projectSteps -> {
                                        var task = new GroupTaskWriteModel();
                                        task.setDescription(projectSteps.getDescription());
-                                       task.setDeadline(deadline.plusDays(projectSteps.getDays_to_deadline()));
+                                       task.setDeadline(deadline.plusDays(projectSteps.getDaysToDeadline()));
                                        return task;
                                     }
                                  )
                                     .collect(Collectors.toSet())
                   );
-                   return service.createGroup(targetGroup);
+                   return service.createGroup(targetGroup,project);
 
               }).orElseThrow(()-> new IllegalArgumentException("Project with given id not found"));
 
