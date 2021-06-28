@@ -27,7 +27,7 @@ public class ProjectService {
         this.service = service;
     }
 
-    List<Project> readAll(){
+    public List<Project> readAll(){
       return  projectRepository.findAll();
     }
 
