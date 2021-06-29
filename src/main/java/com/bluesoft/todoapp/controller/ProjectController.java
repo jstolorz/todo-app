@@ -4,15 +4,14 @@ import com.bluesoft.todoapp.logic.ProjectService;
 import com.bluesoft.todoapp.model.Project;
 import com.bluesoft.todoapp.model.ProjectSteps;
 import com.bluesoft.todoapp.model.projection.ProjectWriteModel;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -46,6 +45,7 @@ class ProjectController {
 
         service.save(current);
         model.addAttribute("project", new ProjectWriteModel());
+        model.addAttribute("project", new ProjectWriteModel());
         model.addAttribute("message","Dodano projekt!");
         return "projects";
     }
@@ -53,6 +53,22 @@ class ProjectController {
     @PostMapping(params = "addStep")
     String addProjectStep(@ModelAttribute("project") ProjectWriteModel current){
         current.getSteps().add(new ProjectSteps());
+        return "projects";
+    }
+
+    @PostMapping("/{id}")
+    String createGroup(
+            @ModelAttribute("project") ProjectWriteModel current,
+            Model model,
+            @PathVariable int id,
+            @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime deadline
+            ){
+        try{
+            service.createGroup(id, deadline);
+            model.addAttribute("message","Dodano grupe!");
+        }catch(IllegalStateException | IllegalArgumentException e){
+             model.addAttribute("message","Błąd podczas tworzenia grupy");
+        }
         return "projects";
     }
 
