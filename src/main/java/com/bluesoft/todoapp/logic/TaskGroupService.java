@@ -50,4 +50,7 @@ public class TaskGroupService {
         return taskRepository.findAllByGroupId(groupId);
     }
 
+    void save(final GroupWriteModel current) {
+
+    }
 }

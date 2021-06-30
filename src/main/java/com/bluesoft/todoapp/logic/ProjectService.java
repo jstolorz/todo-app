@@ -55,7 +55,7 @@ public class ProjectService {
                                        return task;
                                     }
                                  )
-                                    .collect(Collectors.toSet())
+                                    .collect(Collectors.toList())
                   );
                    return service.createGroup(targetGroup,project);
 
