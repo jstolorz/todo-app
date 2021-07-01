@@ -37,7 +37,7 @@
         <dt th:text="| ${group.description} (${group.deadline})|">...</dt>
         <dd>
             <ul class="P(0)">
-                <li th:each="task : ${group.tasks}" th:text="${task.description}"></li>
+                <a th:href="@{/tasks.html(group = ${group.id})}"><li th:each="task : ${group.tasks}" th:text="${task.description}"></li></a>
             </ul>
         </dd>
     </dl>
@@ -51,7 +51,7 @@
                 <input type="text" th:field="*{description}" th:errorclass="'Bdc(red)'">
             </label>
             <fieldset th:each="task,taskStat : *{tasks}">
-                <legend th:text="|Krok ${taskStat.index + 1}|"></legend>
+                <legend th:text="|Zadanie ${taskStat.index + 1}|"></legend>
                 <label> Opis
                     <input type="text" th:field="*{tasks[__${taskStat.index}__].description}" th:errorclass="'Bdc(red)'">
                 </label>
