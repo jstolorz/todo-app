@@ -218,6 +218,11 @@ class ProjectServiceTest {
                     .anyMatch(group -> group.getProject() != null && group.getProject().getId() == projectId);
 
         }
+
+        @Override
+        public boolean existsByDescription(final String description) {
+            return false;
+        }
     }
 
 
