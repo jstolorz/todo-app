@@ -27,7 +27,7 @@ public class ProjectService {
         this.service = service;
     }
 
-    List<Project> readAll(){
+    public List<Project> readAll(){
       return  projectRepository.findAll();
     }
 
@@ -55,7 +55,7 @@ public class ProjectService {
                                        return task;
                                     }
                                  )
-                                    .collect(Collectors.toSet())
+                                    .collect(Collectors.toList())
                   );
                    return service.createGroup(targetGroup,project);
 
