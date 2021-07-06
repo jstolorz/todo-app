@@ -56,7 +56,9 @@
                     <input type="text" th:field="*{tasks[__${taskStat.index}__].description}" th:errorclass="'Bdc(red)'">
                 </label>
                 <label> Deadline
-                    <input type="datetime-local" th:field="*{tasks[__${taskStat.index}__].deadline}" th:errorclass="'Bdc(red)'">
+                    <input type="text" th:field="*{tasks[__${taskStat.index}__].deadline}"
+                           th:errorclass="'Bdc(red)'" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
+<!--                    <input type="datetime-local" th:field="*{tasks[__${taskStat.index}__].deadline}" th:errorclass="'Bdc(red)'">-->
                 </label>
             </fieldset>
             <div>
