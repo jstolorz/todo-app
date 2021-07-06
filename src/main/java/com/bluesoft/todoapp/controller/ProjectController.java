@@ -5,7 +5,10 @@ import com.bluesoft.todoapp.model.Project;
 import com.bluesoft.todoapp.model.ProjectSteps;
 import com.bluesoft.todoapp.model.projection.ProjectWriteModel;
 import io.micrometer.core.annotation.Timed;
+import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/projects")
 class ProjectController {
 
@@ -27,11 +31,13 @@ class ProjectController {
 
 
     @GetMapping
-    String showProject(Model model){
-        ProjectWriteModel writeModel = new ProjectWriteModel();
-        writeModel.setDescription("To html");
-        model.addAttribute("project", writeModel);
-        return "projects";
+    String showProject(Model model, Authentication authentication, HttpTrace.Principal principal){
+//        if(authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN")){
+            ProjectWriteModel writeModel = new ProjectWriteModel();
+            return "projects";
+//        }
+//
+//        return "index";
     }
 
     @PostMapping
