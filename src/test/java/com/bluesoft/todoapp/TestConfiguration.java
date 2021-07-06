@@ -82,6 +82,8 @@ class TestConfiguration {
             public List<Task> findByDone(boolean done) {
                 return null;
             }
+
+
         };
     }
 }
